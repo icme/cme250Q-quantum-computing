@@ -1,0 +1,155 @@
+ \documentclass[10pt]{article}
+\usepackage[english]{babel}
+\usepackage{natbib}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage[normalem]{ulem}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage[utf8]{inputenc}
+\usepackage[top=1 in,bottom=1in, left=1 in, right=1 in]{geometry}
+\usepackage{url}
+\usepackage{hyperref}
+
+\newcounter{ex}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{example}[ex]{Example}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+% Reduce the space above the proof
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+  \vspace{-\topsep}% remove the space after the theorem
+  \pushQED{\qed}%
+  \normalfont
+  \topsep3pt \partopsep3pt % no space before
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+  \addvspace{6pt plus 6pt} % some space after
+}
+\makeatother
+
+\newcommand{\setmargins}[0]{\setlength{\itemsep}{16pt}\setlength{\parsep}{0pt}\setlength{\parskip}{-10pt}}
+
+
+\setlength{\columnseprule}{1 pt}
+\setlength\parindent{0pt}
+\setlength\parskip{5pt}
+%\setlist[enumerate]{itemsep=0mm,parskip=0pt}
+
+\newcommand{\sfrac}[2]{{\ensuremath{\textstyle\frac{#1}{#2}}}}
+\newcommand{\ket}[1]{\ensuremath{\vert{#1}\rangle}}
+\newcommand{\bra}[1]{\ensuremath{\langle{#1}\vert}}
+\newcommand{\abs}[1]{\ensuremath{\vert{#1}\vert}}
+\newcommand{\deter}[1]{\ensuremath{\mathrm{det}({#1})}}
+\newcommand{\todo}[1]{{\color{red}\bf{#1}}}
+\newcommand{\half}[0]{\sfrac{1}{2}}
+\newcommand{\quarter}[0]{\sfrac{1}{4}}
+\newcommand{\norm}[1]{\ensuremath{\Vert{#1}\Vert}}
+\newcommand{\Tr}[1]{\ensuremath{\mathrm{Tr}\left({#1}\right)}}
+\newcommand{\pauligrp}[1]{\mathcal{\hat{P}}_{#1}}
+\newcommand{\ham}[1]{\text{Ham}(#1)}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+
+\title{CME250Q (Autumn 2019) --- Homework 2}
+\author{Rahul Sarkar\footnote{Institute for Computational and Mathematical Engineering, Stanford University, Stanford, CA, USA}}
+
+\date{Oct 22, 2019}
+
+\begin{document}
+
+\maketitle
+
+\textbf{You are neither expected nor required to answer all the questions. Pick the ones that you like depending on your interest, and the amount time you want to spend! Some of these problems may require some research --- so please cite your sources if you use any. You may answer some questions partially, and may choose not to answer sub-parts. Feel free to collaborate with other students, but mention your collaborators. You must additionally write your own solutions.}
+
+\textbf{Deadline:} Nov 30, 2019 at 5:00 pm. Either email your homework to me, or leave a hard copy on my desk in ICME.
+
+\textit{Questions marked with an asterisk $(\ast)$ are slightly difficult.}
+\textit{Questions marked with double asterisk $(\ast \ast)$ are quite difficult.}
+
+\section{Quantum Circuits}
+
+\begin{enumerate}[label=(\roman*)]
+\item In the Z-Y decomposition that we discussed in class, it was mentioned that any $2 \times 2$ unitary matrix can be written as
+\begin{equation*}
+U = 
+\begin{bmatrix}
+e^{i(\alpha - \frac{\beta}{2} - \frac{\delta}{2})} \cos{\frac{\gamma}{2}} & - e^{i(\alpha - \frac{\beta}{2} + \frac{\delta}{2})} \sin{\frac{\gamma}{2}} \\
+e^{i(\alpha + \frac{\beta}{2} - \frac{\delta}{2})} \sin{\frac{\gamma}{2}} & e^{i(\alpha + \frac{\beta}{2} + \frac{\delta}{2})} \cos{\frac{\gamma}{2}}
+\end{bmatrix},
+\end{equation*}
+for some scalars $\alpha, \beta, \gamma, \delta \in \mathbb{R}$. Prove this fact.
+
+\item $(\ast)$ Solve Exercise 4.22 from Mike \& Ike.
+\item $(\ast)$ Solve Exercise 4.23 from Mike \& Ike. The second part is slightly difficult.
+\item Solve Exercise 4.24 from Mike \& Ike.
+\item Solve Exercise 4.27 from Mike \& Ike.
+\item Read Section 4.4 from Mike \& Ike. Explain what are the following:
+	\begin{enumerate}[label=(\alph*)]
+		\item Principle of deferred measurement.
+		\item Principle of implicit measurement.
+	\end{enumerate}
+\item $(\ast)$ Solve Exercise 4.36 from Mike \& Ike.
+\end{enumerate}
+
+\section{Universal Quantum Gates}
+
+\begin{enumerate}[label=(\roman*)]
+
+\item $(\ast)$ Solve Exercise 4.38 from Mike \& Ike. \textit{(This is an important fact to know!)}
+
+\item Solve Exercises 4.41, 4.42, 4.43 from Mike \& Ike. \textit{(This shows that Hadamard, phase, CNOT, and Toffoli gates are universal for quantum computation.)}
+
+\item $(\ast \ast)$ Prove that if $\theta$ is defined by $\cos{(2\pi \theta)} = \cos^2 \left( \frac{\pi}{8} \right)$, $\theta \in [0, \frac{\pi}{2}]$, then $\theta$ is irrational. [Hint: You will need to use unusual number fields, and cyclotomic polynomials.] \textit{(This fact is used in the book to prove universality of the Hadamard and $\frac{\pi}{8}$ gates, although the universality proof is wrong. The errata for the book corrects the proof. The errata is available here: \url{http://www.michaelnielsen.org/qcqi/errata/errata/errata.html})}
+\end{enumerate}
+
+\section{Quantum Fourier Transform \& Quantum Phase Estimation}
+
+\begin{enumerate}[label=(\roman*)]
+
+\item We looked at the QFT circuit for 3-qubits in the class. You can also find the circuit in Box 5.1 of Mike \& Ike. Express this circuit using only single qubit and CNOT quantum gates. Run the ciruit on a real hardware, and collect some results for the input state $|000\rangle$. How does the result compare with the theoretical predictions?
+
+\item Solve Exercise 5.8 from Mike \& Ike.
+
+\item Solve Exercise 5.9 from Mike \& Ike.
+
+\item $(\ast)$ Solve Problem 5.3 from Mike \& Ike. \textit{(This is an alternative to QPE, that was originally discovered by Kitaev!)}
+
+\end{enumerate}
+
+\section{Grover's Search}
+\begin{enumerate}[label=(\roman*)]
+
+\item $(\ast)$ Solve Exercise 6.17 from Mike \& Ike.
+
+\item $(\ast \ast)$ Can you modify Grover's search algorithm when the number of marked items is not known? Feel free to do some research on this problem.
+
+\item Read section 6.3 from Mike \& Ike. Explain how to perform quantum counting by combining Grover's algorithm and QPE.
+
+\item $(\ast)$ Solve Problem 6.1 from Mike \& Ike. \textit{(This shows you how to find a minimum in a database of elements.)}
+
+\end{enumerate}
+
+\end{document}

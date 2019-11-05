@@ -1,0 +1,181 @@
+ \documentclass[10pt]{article}
+\usepackage[english]{babel}
+\usepackage{natbib}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage[normalem]{ulem}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage[utf8]{inputenc}
+\usepackage[top=1 in,bottom=1in, left=1 in, right=1 in]{geometry}
+\usepackage{url}
+\usepackage{hyperref}
+
+\newcounter{ex}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{example}[ex]{Example}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+% Reduce the space above the proof
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+  \vspace{-\topsep}% remove the space after the theorem
+  \pushQED{\qed}%
+  \normalfont
+  \topsep3pt \partopsep3pt % no space before
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+  \addvspace{6pt plus 6pt} % some space after
+}
+\makeatother
+
+\newcommand{\setmargins}[0]{\setlength{\itemsep}{16pt}\setlength{\parsep}{0pt}\setlength{\parskip}{-10pt}}
+
+
+\setlength{\columnseprule}{1 pt}
+\setlength\parindent{0pt}
+\setlength\parskip{5pt}
+%\setlist[enumerate]{itemsep=0mm,parskip=0pt}
+
+\newcommand{\sfrac}[2]{{\ensuremath{\textstyle\frac{#1}{#2}}}}
+\newcommand{\ket}[1]{\ensuremath{\vert{#1}\rangle}}
+\newcommand{\bra}[1]{\ensuremath{\langle{#1}\vert}}
+\newcommand{\abs}[1]{\ensuremath{\vert{#1}\vert}}
+\newcommand{\deter}[1]{\ensuremath{\mathrm{det}({#1})}}
+\newcommand{\todo}[1]{{\color{red}\bf{#1}}}
+\newcommand{\half}[0]{\sfrac{1}{2}}
+\newcommand{\quarter}[0]{\sfrac{1}{4}}
+\newcommand{\norm}[1]{\ensuremath{\Vert{#1}\Vert}}
+\newcommand{\Tr}[1]{\ensuremath{\mathrm{Tr}\left({#1}\right)}}
+\newcommand{\pauligrp}[1]{\mathcal{\hat{P}}_{#1}}
+\newcommand{\ham}[1]{\text{Ham}(#1)}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+
+\title{CME250Q (Autumn 2019) --- Homework 1}
+\author{Rahul Sarkar\footnote{Institute for Computational and Mathematical Engineering, Stanford University, Stanford, CA, USA}}
+
+\date{Oct 13, 2019}
+
+\begin{document}
+
+\maketitle
+
+\textbf{You are neither expected nor required to answer all the questions. Pick the ones that you like depending on your interest, and the amount time you want to spend! Some of these problems may require some research --- so please cite your sources if you use any. You may answer some questions partially, and may choose not to answer sub-parts. Feel free to collaborate with other students, but mention your collaborators. You must additionally write your own solutions.}
+
+\textbf{Deadline:} Nov 30, 2019 at 5:00 pm. Either email your homework to me, or leave a hard copy on my desk in ICME.
+
+\section{Kochen-Specker Theorem \& Gleason's Theorem}
+\begin{enumerate}[label=(\alph*)]
+\item State the Kochen-Specker (KS) theorem, and reduce it to the statement (KS-CLASS) whose proof was partially sketched out in class.
+\item Prove KS-CLASS when the dimension of the Hilbert space is $3$, filling in the details skipped in class.
+\end{enumerate}
+
+You will now prove the finite dimensional version of Gleason's theorem. First read the following to understand the context.
+
+Let $\mathcal{H}$ be a finite dimensional Hilbert space over $\mathbb{C}$ (or $\mathbb{R}$), and $\text{dim}(\mathcal{H}) = n \geq 3$. A non-negative, real valued function $p : \{x \in \mathcal{H}: ||x|| = 1\} \rightarrow \mathbb{R}_{\geq 0}$ is called a \textit{state on $\mathcal{H}$} if the following conditions hold:
+\begin{enumerate}[label=(\roman*)]
+\item $p(\alpha x) = p(x)$ for all $\alpha \in \mathbb{C}$ (or $\mathbb{R}$), $|\alpha| = 1$, and for all unit vectors $x \in \mathcal{H}$.
+\item If $x_1,\dots,x_n$ is an orthonormal basis for $\mathcal{H}$, then $\sum_{i=1}^{n} p(x_i) = 1$.
+\end{enumerate}
+
+\begin{theorem}[Gleason's theorem]
+Given a state $p$, there is a Hermitian, positive operator $W : \mathcal{H} \rightarrow \mathcal{H}$, with $\text{trace}(W) = 1$, such that $p(x) = (x, Wx)_{\mathcal{H}}$, for all unit vectors $x \in \mathcal{H}$, where $(\cdot,\cdot)_{\mathcal{H}}$ denotes the inner product on $\mathcal{H}$.
+\end{theorem}
+
+\begin{enumerate}[label=(\alph*),start=3]
+\item Show that the set of \textit{states on $\mathcal{H}$} is not empty, i.e. give an example of a state.
+
+\item Suppose any state $p$ can be represented as $p(x) = (x, Wx)_{\mathcal{H}}$, for some linear map $W : \mathcal{H} \rightarrow \mathcal{H}$ that depends on $p$. Prove that $W$ is a Hermitian, positive operator and satisfies $\text{trace}(W) = 1$.
+
+\item \textit{(Optional!)} Prove that any state $p$ can be represented as $p(x) = (x, Wx)_{\mathcal{H}}$, for some linear map $W : \mathcal{H} \rightarrow \mathcal{H}$. This proves Gleason's theorem.
+
+\item Assuming Gleason's theorem for $n = 3$, prove KS-CLASS for dimension $3$.
+
+\item Read up on why the Kochen-Specker theorem and Gleason's theorem are important for the foundations of quantum mechanics. You may start here: \url{https://arxiv.org/abs/1411.4583}. Describe briefly what you read (not more than 500 words for each theorem).
+\end{enumerate}
+
+\section{Elementary linear algebra}
+You are asked to prove some basic facts of linear algebra. In all the questions below, assume that $\mathcal{H}$ is a finite dimensional Hilbert space of dimension $n$ over $\mathbb{C}$, and $\mathcal{H}_1, \mathcal{H}_2$ are finite dimensional Hilbert spaces over $\mathbb{C}$, of dimensions $n_1, n_2$ respectively.
+
+\begin{enumerate}[label=(\alph*)]
+
+\item In the class we proved that if $P$ is a Hermitian operator such that $x^{\ast} P x = 0$ for all $x \in \mathcal{H}$, then $P = 0$. Show that this need not be true if $P$ is not Hermitian, by providing an explicit counterexample.
+
+\item Let $A$ and $B$ be Hermitian operators. Prove that $A$ and $B$ are simultaneously diagonalizable iff $[A,B] = 0$.
+
+\item Show that the Hilbert-Schmidt inner product defined as $(A,B)_{\text{HS}} = \text{trace}(A^{\ast}B)$ for all $A,B \in \mathcal{H}$ is actually an inner-product on $\mathcal{L}(\mathcal{H}, \mathcal{H})$ which denotes the set of all linear operators on $\mathcal{H}$.
+
+\item Let $P \in \mathcal{L}(\mathcal{H}_1, \mathcal{H}_1)$ and $Q \in \mathcal{L}(\mathcal{H}_2, \mathcal{H}_2)$ be linear operators. Show that the tensor product $P \otimes Q \in \mathcal{L}(\mathcal{H}_1 \otimes \mathcal{H}_2, \mathcal{H}_1 \otimes \mathcal{H}_2)$ is
+\begin{enumerate}[label=(\roman*)]
+\item unitary if $P,Q$ are unitary.
+\item Hermitian if $P,Q$ are Hermitian.
+\item positive if $P,Q$ are positive.
+\end{enumerate}
+Are the converses true?
+
+\item Show that exponential of a matrix is well defined, i.e. if $P \in \mathcal{L}(\mathcal{H}, \mathcal{H})$, then $\exp(P) \in \mathcal{L}(\mathcal{H}, \mathcal{H})$, where $\exp(P) := \sum\limits_{i=0}^{\infty} P^i / i !$.
+
+\item Show that if $A,B \in \mathcal{L}(\mathcal{H}, \mathcal{H})$, and $[A,B] = 0$, then $\exp(A) \exp(B) = \exp(A+B)$.
+
+\item Show that if $A,B \in \mathcal{L}(\mathcal{H}, \mathcal{H})$, then $\exp((A+B)t) = \exp(At) \exp(Bt) \exp(-\frac{1}{2}[A,B]t^2) + O(t^3)$, as $t \rightarrow 0$. This is one version of the Baker-Campbell-Hausdorff formula.
+
+\item Show that if $[A,[A,B]] = [B,[A,B]] = 0$, then the Baker-Campbell-Hausdorff formula is exact, i.e.  $\exp(A+B) = \exp(A) \exp(B) \exp(-\frac{1}{2}[A,B])$. Prove that this implies (f).
+\end{enumerate}
+
+\section{Quantum Circuits \& Quantum Gates}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item Write the matrix representation of the Toffoli gate.
+
+\item Design a 2-qubit quantum circuit that implements the unitary transformation $| x,y \rangle \rightarrow | x, y \oplus f(x) \rangle$, for all $x,y \in \{0,1\}$, for the following Boolean functions $f: \{0,1\} \rightarrow \{0,1\}$:
+\begin{enumerate}[label=(\roman*)]
+\item $f(0) = 0, \; f(1) = 1$,
+\item $f(0) = 1, \; f(1) = 0$,
+\item $f(0) = f(1) = 1$.
+\end{enumerate}
+
+\item For the three functions described above, implement Deutsch's algorithm on a real quantum computer, and report your results with the circuit that you implemented. Comment on the results.
+
+\item Suppose a 2-qubit state $| \psi \rangle$ is guaranteed to be one of the Bell states $| \beta_{00} \rangle, \; | \beta_{01} \rangle, \; | \beta_{10} \rangle, \; | \beta_{11} \rangle$. It is possible possible to come up with a measurement that can distinguish these states. Briefly explain why. Design a quantum circuit that implements this task.
+
+\item Implement quantum circuits on a real quantum computer, and test out the measurement scheme that you designed in (d). Comment on the results.
+\end{enumerate}
+
+\section{Quantum Measurements \& Density Operator}
+
+Do the following problems from Mike \& Ike.
+
+\begin{enumerate}[label=(\alph*)]
+\item Exercise 2.59, 2.60, 2.61.
+\item Exercise 2.64.
+\item Exercise 2.71.
+\item Exercise 2.72.
+\item Exercise 2.78.
+\item Exercise 2.82.
+\item Problem 2.3.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,98 @@
+ \documentclass[10pt]{article}
+\usepackage[english]{babel}
+\usepackage{natbib}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage[normalem]{ulem}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage[utf8]{inputenc}
+\usepackage[top=1 in,bottom=1in, left=1 in, right=1 in]{geometry}
+\usepackage{url}
+\usepackage{hyperref}
+
+\newcounter{ex}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{example}[ex]{Example}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+% Reduce the space above the proof
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+  \vspace{-\topsep}% remove the space after the theorem
+  \pushQED{\qed}%
+  \normalfont
+  \topsep3pt \partopsep3pt % no space before
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+  \addvspace{6pt plus 6pt} % some space after
+}
+\makeatother
+
+\newcommand{\setmargins}[0]{\setlength{\itemsep}{16pt}\setlength{\parsep}{0pt}\setlength{\parskip}{-10pt}}
+
+
+\setlength{\columnseprule}{1 pt}
+\setlength\parindent{0pt}
+\setlength\parskip{5pt}
+%\setlist[enumerate]{itemsep=0mm,parskip=0pt}
+
+\newcommand{\sfrac}[2]{{\ensuremath{\textstyle\frac{#1}{#2}}}}
+\newcommand{\ket}[1]{\ensuremath{\vert{#1}\rangle}}
+\newcommand{\bra}[1]{\ensuremath{\langle{#1}\vert}}
+\newcommand{\abs}[1]{\ensuremath{\vert{#1}\vert}}
+\newcommand{\deter}[1]{\ensuremath{\mathrm{det}({#1})}}
+\newcommand{\todo}[1]{{\color{red}\bf{#1}}}
+\newcommand{\half}[0]{\sfrac{1}{2}}
+\newcommand{\quarter}[0]{\sfrac{1}{4}}
+\newcommand{\norm}[1]{\ensuremath{\Vert{#1}\Vert}}
+\newcommand{\Tr}[1]{\ensuremath{\mathrm{Tr}\left({#1}\right)}}
+\newcommand{\pauligrp}[1]{\mathcal{\hat{P}}_{#1}}
+\newcommand{\ham}[1]{\text{Ham}(#1)}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+
+\title{CME250Q (Autumn 2019) --- Lecture 1}
+\author{Rahul Sarkar\footnote{Institute for Computational and Mathematical Engineering, Stanford University, Stanford, CA, USA}}
+
+\date{Oct 2, 2019}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Links to interesting material}
+
+\subsection{Scott Aaronson's blog}
+\url{https://www.scottaaronson.com/blog/}
+
+\subsection{Peter Sarnak's lectures on ``Golden Gates''}
+
+The following talks are on the same topic --- some are more ``all over the place'' than others. There are interesting connections between quantum computing and Ramanujan conjecture, which is alluded to in these talks!
+
+Stanford talk: \url{https://www.youtube.com/watch?v=l6t-8vbA-N4}\\
+Simon's institute talk: \url{https://www.youtube.com/watch?v=EHvKM9AluuQ}\\
+IQC talk: \url{https://www.youtube.com/watch?v=oeBFeHkUapg}
+
+\end{document}

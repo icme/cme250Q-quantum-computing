@@ -1,0 +1,138 @@
+ \documentclass[10pt]{article}
+\usepackage[english]{babel}
+\usepackage{natbib}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage[normalem]{ulem}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage[utf8]{inputenc}
+\usepackage[top=1 in,bottom=1in, left=1 in, right=1 in]{geometry}
+\usepackage{url}
+\usepackage{hyperref}
+
+\newcounter{ex}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{example}[ex]{Example}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+% Reduce the space above the proof
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+  \vspace{-\topsep}% remove the space after the theorem
+  \pushQED{\qed}%
+  \normalfont
+  \topsep3pt \partopsep3pt % no space before
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+  \addvspace{6pt plus 6pt} % some space after
+}
+\makeatother
+
+\newcommand{\setmargins}[0]{\setlength{\itemsep}{16pt}\setlength{\parsep}{0pt}\setlength{\parskip}{-10pt}}
+
+
+\setlength{\columnseprule}{1 pt}
+\setlength\parindent{0pt}
+\setlength\parskip{5pt}
+%\setlist[enumerate]{itemsep=0mm,parskip=0pt}
+
+\newcommand{\sfrac}[2]{{\ensuremath{\textstyle\frac{#1}{#2}}}}
+\newcommand{\ket}[1]{\ensuremath{\vert{#1}\rangle}}
+\newcommand{\bra}[1]{\ensuremath{\langle{#1}\vert}}
+\newcommand{\abs}[1]{\ensuremath{\vert{#1}\vert}}
+\newcommand{\deter}[1]{\ensuremath{\mathrm{det}({#1})}}
+\newcommand{\todo}[1]{{\color{red}\bf{#1}}}
+\newcommand{\half}[0]{\sfrac{1}{2}}
+\newcommand{\quarter}[0]{\sfrac{1}{4}}
+\newcommand{\norm}[1]{\ensuremath{\Vert{#1}\Vert}}
+\newcommand{\Tr}[1]{\ensuremath{\mathrm{Tr}\left({#1}\right)}}
+\newcommand{\pauligrp}[1]{\mathcal{\hat{P}}_{#1}}
+\newcommand{\ham}[1]{\text{Ham}(#1)}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+
+\title{CME250Q (Autumn 2019)}
+\author{Rahul Sarkar\footnote{Institute for Computational and Mathematical Engineering, Stanford University, Stanford, CA, USA}}
+
+\date{Oct 2, 2019}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Logistics}
+
+\textbf{Class Name:} Introduction to quantum computation and quantum algorithms
+
+\textbf{Instructor:} Rahul Sarkar (rsarkar at stanford dot edu)
+
+\textbf{Textbook:} Quantum Computation and Quantum Information, Michael A. Nielsen \& Issac L. Chuang.\\
+The book is downloadable with a Stanford id from this link: \url{https://searchworks.stanford.edu/view/9436030}
+
+\subsection{Class times}
+The class meets on the following dates: 10/2, 10/7, 10/9, 10/14, 10/16, 10/21, 10/23 and 10/28. We may do an extra lecture depending on class motivation on 10/30. Classroom location is 380-380Y. Class times 10:30 am - 12:20 pm.
+
+\subsection{Office hours}
+By appointment. My desk is in the east wing of ICME (Huang engineering building, basement level).
+
+\subsection{Schedule}
+The schedule below is tentative.
+
+10/2 --- Introduction \& motivation, limits of quantum computation. 
+
+10/7 --- Qubits and bra-ket notation, introduction to quantum gates \& quantum circuits, quantum entanglement (Bell states), no-cloning theorem, quantum teleportation.
+
+10/9 --- Toffoli gate and $BPP \subseteq BQP$, quantum parallelism, Deutsch's algorithm, Deutsch-Josza algorithm, Kochen-Specker theorem, linear algebra basics.
+
+10/14 --- Postulates of quantum mechanics, quantum measurement formalism (including projective measurements and POVM), density operator formalism, pure vs mixed states.
+
+10/16 --- Partial trace, Schmidt decomposition \& purifications, Quantum Fourier Transform, DiVincenzo's criteria.
+
+10/21 --- Bell's inequalities, Universal quantum gates (I), Quantum phase estimation.
+
+10/23 --- Universal quantum gates (II), Grover's search.
+
+10/28 --- Guest lecture on HHL, QSVE, QRS (yet to be confirmed!)
+
+10/30 --- Solovay-Kitaev theorem, Lower bounds on quantum search, Open problems in QC.
+
+\subsection{Homeworks}
+Two homeworks, which are \textbf{optional}! The first one will be released on 10/11, and the second one will be released on 10/18. The homeworks are due 11/30 by 5:00 pm via email, or leave a hardcopy on instructors desk in ICME. If you are not doing the homeworks, you should let me know. You may do as many problems as you like. It is okay to turn in your homework even if you do just one problem in each homework.
+
+\subsection{Grading}
+If you are not planning to turn in any homework, you should plan on attending at least 5 lectures to pass the course. If this does not work for you, you should contact me and we can discuss. \textbf{If you are not planning to turn in any homework, it is important that you let me know!}
+
+\subsection{Learning goals}
+\begin{enumerate}[(i)]
+\item Understand what are the limitations of quantum computing. For example, you should not go around claiming that quantum computers can solve NP-COMPLETE problems afterwards.
+\item Develop some fluency with the bra-ket notation, so that you can talk to physicists.
+\item Understand what a quantum circuit is, and how to figure out what it is doing.
+\item Understand some basic quantum algorithms such as phase estimation, QFT, and Grover's search.
+\item Understand what the most important catch phrases mean, for example: entanglement, Bell's inequality, no-cloning theorem etc.
+\end{enumerate}
+
+\bibliographystyle{unsrt}
+\bibliography{bibliography}
+\end{document}
